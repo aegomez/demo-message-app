@@ -6,8 +6,16 @@ services:
       - mongo-data:/data/db
     expose:
       - "27017"
+  # save session data    
+  kv:
+    image: redis:alpine
+    volumes:
+      - redis-data:/data
+    expose:
+      - "6379"
   app:
-    image: message-app:0.1.1
+    # new version using redis
+    image: message-app:0.2
     ports:
       - "8000:1337"
     links:
@@ -16,5 +24,7 @@ services:
       - mongo
     environment:
       - MONGO_URL=mongodb://mongo/messageApp
+      - REDIS_URL=redis
 volumes:
   mongo-data:
+  redis-data:

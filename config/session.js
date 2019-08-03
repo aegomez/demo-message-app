@@ -11,6 +11,9 @@
 
 module.exports.session = {
 
+  adapter: 'redis',
+  host: process.env.REDIS_HOST || 'localhost',
+
   /***************************************************************************
   *                                                                          *
   * Session secret is automatically generated when your new app is created   *
